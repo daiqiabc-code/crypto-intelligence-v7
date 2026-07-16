@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/* ─── Core Design Tokens ─── */
+/* Dark theme = default (Bloomberg Terminal / Citadel style) */
+:root {
+  --bg-primary: #0b1120;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1f2937;
+  --bg-card: #111827;
+  --bg-hover: #1f2937;
+  --bg-active: #1e3a5f;
+
+  --border-primary: #1f2937;
+  --border-secondary: #374151;
+
+  --text-primary: #f9fafb;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-dim: #475569;
+
+  --accent-green: #34d399;
+  --accent-red: #fb7185;
+  --accent-blue: #60a5fa;
+  --accent-gold: #fbbf24;
+  --accent-purple: #a78bfa;
+  --accent-cyan: #22d3ee;
+  --accent-orange: #fb923c;
+
+  --chart-grid: #1f2937;
+  --chart-line: #60a5fa;
+}
+
+/* ─── Light Theme Override ─── */
+.light {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-hover: #f1f5f9;
+  --bg-active: #e0f2fe;
+
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-dim: #cbd5e1;
+
+  --accent-green: #16a34a;
+  --accent-red: #dc2626;
+  --accent-blue: #2563eb;
+  --accent-gold: #d97706;
+  --accent-purple: #7c3aed;
+  --accent-cyan: #0891b2;
+  --accent-orange: #ea580c;
+
+  --chart-grid: #e2e8f0;
+  --chart-line: #2563eb;
+}
+
+/* ─── Tailwind v4 Theme — references runtime CSS variables ─── */
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-card: var(--bg-card);
+  --color-bg-hover: var(--bg-hover);
+  --color-bg-active: var(--bg-active);
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent-green: var(--accent-green);
+  --color-accent-red: var(--accent-red);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-orange: var(--accent-orange);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─── 300ms Smooth Transitions ─── */
+*,
+*::before,
+*::after {
+  transition: background-color 300ms ease,
+              border-color 300ms ease,
+              color 300ms ease,
+              box-shadow 300ms ease;
+}
+
+/* ─── Base Body ─── */
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar — adapts to theme ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* Selection */
+::selection { background: rgba(96, 165, 250, 0.3); color: #fff; }
+.light ::selection { background: rgba(37, 99, 235, 0.2); }
+
+/* ─── Animations ─── */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 4px rgba(96, 165, 250, 0.2); } 50% { box-shadow: 0 0 12px rgba(96, 165, 250, 0.4); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-33.33%); } }
+
+.animate-fade-in { animation: fadeIn 0.4s ease-out; }
+.animate-ticker { animation: ticker 30s linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-slide-in { animation: slideIn 0.3s ease-out; }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Bloomberg-style monospace data text */
+.data-text {
+  font-family: var(--font-mono), "SF Mono", Monaco, "Cascadia Code", monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
